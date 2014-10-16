@@ -17,7 +17,7 @@ Cartridge-Version: 0.0.17.1
 Compatible-Versions:
 - 0.0.16
 - 0.0.17
-Cartridge-Vendor: redhat
+Cartridge-Vendor: wyy
 Categories:
 - service
 - python
@@ -73,3 +73,5 @@ Version-Overrides:
     - python-3.3
     - python
     - python(version) = 3.3
+Install-Build-Required: false
+Source-Url: https://github.com/yanywang/php21z.git
