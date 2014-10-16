@@ -1,0 +1,34 @@
+#!/bin/bash -eu
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+python_version=$1
+curr=$2
+next=$3
+
+OSE_20_LATEST="0.0.8.2"
+OSE_21_GA="0.0.16"
+
+if version_lt $curr $OSE_21_GA; then
+    chown $OPENSHIFT_GEAR_UUID:$OPENSHIFT_GEAR_UUID ${OPENSHIFT_PYTHON_DIR}etc/conf.d/openshift.conf
+    chcon -u unconfined_u ${OPENSHIFT_PYTHON_DIR}etc/conf.d/openshift.conf
+fi
+
+upgrade_script="${OPENSHIFT_PYTHON_DIR}usr/versions/${python_version}/bin/upgrade"
+
+if [ -e "$upgrade_script" ]; then
+    $upgrade_script "$@"
+fi
+
+# The LD_LIBRARY_PATH is now handled by the Node itself
+# and constructed using LD_LIBRARY_PATH_ELEMENT. This will
+# remove the existing LD_LIBRARY_PATH so the Node one can
+# take the precedence.
+#
+if version_lt $curr $OSE_21_GA; then
+  if [ -f ${OPENSHIFT_PYTHON_DIR}env/LD_LIBRARY_PATH ]; then
+    rm -f ${OPENSHIFT_PYTHON_DIR}env/LD_LIBRARY_PATH
+  fi
+fi
+
+exit 0

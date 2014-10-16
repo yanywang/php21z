@@ -1,0 +1,13 @@
+#!/bin/bash -eu
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+python_version="$1"
+old_cart_version="$2"
+new_cart_version="$3"
+
+OSE_20_LATEST="0.0.8.2"
+OSE_21_GA="0.0.16"
+
+source $OPENSHIFT_PYTHON_DIR/usr/versions/$python_version/lib/update-configuration
+source $OPENSHIFT_PYTHON_DIR/usr/versions/$python_version/lib/python-context
