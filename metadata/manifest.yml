@@ -74,4 +74,4 @@ Version-Overrides:
     - python
     - python(version) = 3.3
 Install-Build-Required: false
-Source-Url: https://github.com/yanywang/php21z.git
+Source-Url: git://github.com/yanywang/php21z.git
